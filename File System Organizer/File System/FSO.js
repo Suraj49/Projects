@@ -6,8 +6,11 @@
  // like text files will go into text File Folder .exe files will go into application folder and so on
  // so at the end you will have a arranged set of files in specific folders
 
-  
  
+ const fs=require('fs')
+ const path=require('path')
+ 
+
  let input = process.argv.slice(2)
 
  let command = input[0]
@@ -47,7 +50,34 @@
 }
 
 function organizeFn(dirPath){
+//Create folder named Organized
+let destPath
 
-    console.log(dirPath)
+if(dirPath==undefined){
+    console.log('Please enter a valied Directory path')
+    return;
+}  // check whether directory path is passed or not and if not simply return
+
+let doesExist = fs.existsSync(dirPath)
+   // this doesExist will tell the Target Folder exists or not
+
+
+if(doesExist==true){
+    destPath = path.join(dirPath , 'Organized_Files')
+       // we created a path for organized_Files Folder
+
+
+       // check whether in the given destPath does a folder exist with same name and if does not make a folder
+    if(fs.existsSync(destPath)==false){
+        fs.mkdirSync(destPath)
+    }
+    else{
+        console.log('Folder Already Exists')
+    }
+}else{
+    console.log('Please Enter A valid path')
+}
+
+
 }
 
